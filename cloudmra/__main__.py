@@ -7,6 +7,7 @@ Created on Oct 12, 2019
 import sys
 import json
 import os
+import argparse
 #import logging
 
 from cloudmra.cloudhandler import cloudhandler
@@ -16,10 +17,16 @@ from cloudmra.deliveryhandler import deliveryhandler
 def main(args=None):
 	if args is None:
 		args = sys.argv[1:]
-	with open("alias.json", 'r') as aliasjson:
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-a", "--aliasFile", action="store", default=os.environ["HOME"] + "/.cloudmra/alias.json", help="Filesystem path to alias json file.")
+	parser.add_argument("-c", "--configFile", action="store", default=os.environ["HOME"] + "/.cloudmra/cloudmra.config", help="Filesystem path to config json file.")
+	parser.add_argument("-d", "--daemon", action="store_true", help="Run as a daemon") # store_true is false by default, and returns True when flag is set.
+	arguments = parser.parse_args()
+	
+	with open(arguments.aliasFile, 'r') as aliasjson:
 		alias = aliashandler(aliasjson.read())
 		
-	with open(os.environ["HOME"] + "/.cloudmra/cloudmra.config", 'r') as configjson:
+	with open(arguments.configFile, 'r') as configjson:
 		CONFIG = json.loads(configjson.read())
 	
 	QUEUE_NAME = CONFIG.get("CLOUD").get("QUEUE_NAME")
