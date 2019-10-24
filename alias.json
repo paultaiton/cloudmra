@@ -1,0 +1,17 @@
+{
+  "domains": [
+    {
+      "name": "example.com",
+      "aliases": {
+        "postmaster": "paul",
+        "admin": "paul"
+      },
+      "default": "paul"
+    },
+    {
+      "name": "example.net",
+      "aliases": {},
+      "default": "paul"
+    }
+  ]
+}
