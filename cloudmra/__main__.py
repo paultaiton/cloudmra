@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 '''
-Created on Oct 12, 2019
-
 @author: paul
 '''
 import sys
@@ -20,7 +18,10 @@ class overseer():
 		EXPIRE_BUCKET = CONFIG.get("CLOUD").get("EXPIRE_BUCKET")
 		DELIVERY_HOST = CONFIG.get("DELIVERY").get("HOST")
 		DELIVERY_PORT = CONFIG.get("DELIVERY").get("PORT")
-		self.SLEEP_TIME = 57
+		self.SLEEP_TIME = CONFIG.get("DAEMON").get("SLEEP")
+		if self.SLEEP_TIME is None:
+			self.SLEEP_TIME = 60
+		
 		self.CONTINUE = LOOP
 
 		self.inhandler = cloudhandler(queue_name=QUEUE_NAME, expire_bucket=EXPIRE_BUCKET)
