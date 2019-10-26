@@ -1,6 +1,4 @@
 '''
-Created on Oct 12, 2019
-
 @author: paul
 '''
 import os
@@ -34,7 +32,7 @@ class cloudhandler():
 		
 	def fetch(self):
 		returnlist = list()
-		messages = self.queue.receive_messages(WaitTimeSeconds=20, MaxNumberOfMessages=10 ) 
+		messages = self.queue.receive_messages(WaitTimeSeconds=3, MaxNumberOfMessages=10 ) 
 		for message in messages:
 			payload = json.loads(json.loads(message.body).get("Message")) 
 			receipients = json.loads(json.loads(message.body).get("Message")).get("receipt").get("recipients")
