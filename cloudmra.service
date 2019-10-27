@@ -1,0 +1,13 @@
+[Unit]
+Description=CloudMRA
+After=dovecot.service
+
+[Service]
+ExecStart=/usr/bin/python3 -u -m cloudmra -S
+User=cloudmra
+Group=cloudmra
+Restart=on-failure
+RestartSec=300
+
+[Install]
+WantedBy=multi-user.target
