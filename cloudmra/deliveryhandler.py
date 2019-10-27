@@ -11,6 +11,10 @@ class deliveryhandler():
 		'''
 		Constructor
 		'''
+		self.hostname = host
+		self.port = port
+		self.user = user
+		self.password = password
 		self.lmtp = smtplib.LMTP(host=host, port=port)#, user=user, password=password)
 		
 	def deliver(self, message, receipient):
@@ -18,8 +22,8 @@ class deliveryhandler():
 			self.lmtp.sendmail(from_addr='', to_addrs=receipient, msg=message)
 		except smtplib.SMTPRecipientsRefused :
 			return self.INVALIDUSER
-		except smtplib.SMTPServerDisconnected:
-			self.lmtp.connect()
+		except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
+			self.lmtp.connect(hostname=self.hostname, port=self.port)
 			self.lmtp.sendmail(from_addr='', to_addrs=receipient, msg=message)
 		return True
 			
