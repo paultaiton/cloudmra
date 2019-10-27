@@ -3,14 +3,8 @@
 '''
 import smtplib
 class deliveryhandler():
-	'''
-	classdocs
-	'''
 	INVALIDUSER = False
 	def __init__(self, host="localhost", port=24, user=None, password=None):
-		'''
-		Constructor
-		'''
 		self.hostname = host
 		self.port = port
 		self.user = user
