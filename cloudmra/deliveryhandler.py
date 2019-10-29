@@ -17,7 +17,7 @@ class deliveryhandler():
 		except smtplib.SMTPRecipientsRefused :
 			return self.INVALIDUSER
 		except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
-			self.lmtp.connect(hostname=self.hostname, port=self.port)
+			self.lmtp.connect(host=self.hostname, port=self.port)
 			self.lmtp.sendmail(from_addr='', to_addrs=receipient, msg=message)
 		return True
 			
