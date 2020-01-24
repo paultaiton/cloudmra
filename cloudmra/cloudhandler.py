@@ -57,3 +57,7 @@ class cloudhandler():
 		handle[1].delete()
 		self.expire_bucket.copy( {'Bucket': handle[2].bucket_name, 'Key': handle[2].key}, handle[2].key)
 		handle[2].delete()
+		
+if __name__ == "__main__":
+	print("ERROR: This module should not be called directly.")
+	exit(1)
