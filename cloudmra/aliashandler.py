@@ -52,3 +52,7 @@ class aliashandler():
 			return response
 		else:
 			return response + '@' + host
+		
+if __name__ == "__main__":
+	print("ERROR: This module should not be called directly.")
+	exit(1)
