@@ -33,13 +33,18 @@ class aliashandler():
         '''
         self.domains = dict()
         for entry in json.loads(config_json).get("domains"):
-            self.domains[entry['name']] = domain(entry['name'], entry['default'])
-            for src, dest in entry['aliases'].items():
-                self.domains[entry['name']].set_alias(src, dest)
+            if not self.domains.get(entry.get('name', None).lower()):  # todo None.lower will cause exceptions, what should be done?
+                self.domains[entry.get('name', None).lower()] = domain(entry.get('name', None).lower(),
+                                                                       entry.get('default', None).lower())
+                for src, dest in entry['aliases'].items():
+                    self.domains[entry['name']].set_alias(src, dest)
+            else:
+                print("ERROR: your alias configuration is broken. Do you have multiple definitions for the same domain?")
+                exit(2)
 
     def get_alias(self, address):
         user, host = address.split(sep='@')
-        response = self.domains[host].get_alias(user)
+        response = self.domains.get(host.lower()).get_alias(user)  # todo needs a way to catch invalid domains.
         if '@' in response:
             return response
         else:
@@ -47,7 +52,7 @@ class aliashandler():
 
     def get_default(self, address):
         user, host = address.split(sep='@')
-        response = self.domains[host].get_default()
+        response = self.domains.get(host.lower()).get_default()  # todo needs a way to catch invalid domains.
         if '@' in response:
             return response
         else:
