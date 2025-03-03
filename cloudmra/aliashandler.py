@@ -35,7 +35,7 @@ class aliashandler():
         for entry in json.loads(config_json).get("domains"):
             if not self.domains.get(entry.get('name', None).lower()):  # todo None.lower will cause exceptions, what should be done?
                 self.domains[entry.get('name', None).lower()] = domain(entry.get('name', None).lower(),
-                                                                     entry.get('default', None).lower())
+                                                                       entry.get('default', None).lower())
                 for src, dest in entry['aliases'].items():
                     self.domains[entry['name']].set_alias(src, dest)
             else:
