@@ -16,14 +16,12 @@ class deliveryhandler():
 
     def deliver(self, message, receipient):
         try:
-            # self.lmtp.sendmail(from_addr='', to_addrs=receipient, msg=message)
             self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)
         except smtplib.SMTPRecipientsRefused:
             return self.INVALIDUSER
         except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
             self.lmtp.connect(host=self.hostname, port=self.port)
             try:
-                # self.lmtp.sendmail(from_addr='', to_addrs=receipient, msg=message)
                 self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)
             except smtplib.SMTPRecipientsRefused:
                 return self.INVALIDUSER
