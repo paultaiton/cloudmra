@@ -35,7 +35,7 @@ class aliashandler():
         for entry in json.loads(config_json).get("domains"):
             if not self.domains.get(entry.get('name', '')):
                 self.domains[entry.get('name', '').lower()] = domain(entry.get('name', '').lower(),
-                                                                    entry.get('default', '').lower())
+                                                                     entry.get('default', '').lower())
                 for src, dest in entry['aliases'].items():
                     self.domains[entry['name']].set_alias(src, dest)
             else:
