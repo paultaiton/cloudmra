@@ -19,7 +19,7 @@ class cloudhandler():
         '''
         self.sqs = boto3.resource('sqs')
         self.s3 = boto3.resource('s3')
-        if expire_bucket is not None:
+        if expire_bucket:
             self.expire_bucket = self.s3.Bucket(expire_bucket)
         else:
             self.expire_bucket = None
