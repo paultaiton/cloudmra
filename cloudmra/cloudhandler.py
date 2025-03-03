@@ -15,8 +15,8 @@ class cloudhandler():
 
     def __init__(self, queue_name, expire_bucket=None):
         '''
-            Constructor method takes a string argument of queue_name to represent the name of the
-            AWS SQS queue that will hold the messages from SES when a new email is received.
+            Constructor method takes a string argument of queue_name to represent the name of
+            the AWS SQS queue that will hold the messages from SES when a new email is received.
         '''
         self.sqs = boto3.resource('sqs')
         self.s3 = boto3.resource('s3')
@@ -46,9 +46,9 @@ class cloudhandler():
             with open(self.filename, 'r') as tempfile:
                 email = tempfile.read()
             os.remove(self.filename)
-            returnlist.append((  # The odd format is to keep this modular.
-                (email, set(receipients)),  # The tuple (email, set(receipients)) is used by main.
-                message, s3obj))  # message is included as a return handle to be used in a later call to delete()
+            returnlist.append(((email, set(receipients)),  # The odd format is to keep this modular.
+                               message,                    # The tuple (email, set(receipients)) is used by main.
+                               s3obj))                     # message is included as a return handle to be used in a later call to delete()
 
         if len(returnlist) > 0:
             return returnlist

@@ -10,11 +10,10 @@ setup(name='cloudmra',
       version='0.1.0',
       packages=['cloudmra'],
       install_requires=['boto3'],
-      entry_points={
-          'console_scripts': [
-              'cloudmra = cloudmra.__main__:main'
-          ]
-      },
+      entry_points={'console_scripts': [
+                        'cloudmra = cloudmra.__main__:main'
+                    ]
+                    },
 
       author="Paul Aiton",
       author_email="paul@aiton.info",
