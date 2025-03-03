@@ -14,8 +14,7 @@ class cloudhandler():
     '''
 
     def __init__(self, queue_name, expire_bucket=None):
-        '''
-            Constructor method takes a string argument of queue_name to represent the name of
+        ''' Constructor method takes a string argument of queue_name to represent the name of
             the AWS SQS queue that will hold the messages from SES when a new email is received.
         '''
         self.sqs = boto3.resource('sqs')

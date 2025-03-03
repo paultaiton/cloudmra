@@ -27,7 +27,6 @@ class deliveryhandler():
                 self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)
             except smtplib.SMTPRecipientsRefused:
                 return self.INVALIDUSER
-
         return True
 
 
