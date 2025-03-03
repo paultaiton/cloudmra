@@ -52,7 +52,7 @@ class aliashandler():
 
     def get_default(self, address):
         user, host = address.split(sep='@')
-        response = self.domains.get(host.lower()).get_default()
+        response = self.domains.get(host.lower()).get_default()  # todo needs a way to catch invalid domains.
         if '@' in response:
             return response
         else:
