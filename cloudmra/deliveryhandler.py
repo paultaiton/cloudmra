@@ -2,6 +2,7 @@
 @author: paul
 '''
 import smtplib
+# from smtplib import SMTPUTF8
 
 
 class deliveryhandler():
@@ -15,17 +16,17 @@ class deliveryhandler():
         self.lmtp = smtplib.LMTP(host=host, port=port)  # , user=user, password=password)
 
     def deliver(self, message, receipient):
-        try:
-            self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)
-        except smtplib.SMTPRecipientsRefused:
-            return self.INVALIDUSER
-        except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
-            self.lmtp.connect(host=self.hostname, port=self.port)
+        while True:
             try:
-                self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)
+                self.lmtp.send_message(msg=message, from_addr=None, to_addrs=receipient)  # , mail_options=(SMTPUTF8))
             except smtplib.SMTPRecipientsRefused:
                 return self.INVALIDUSER
-        return True
+            except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
+                self.lmtp.connect(host=self.hostname, port=self.port)
+            except UnicodeEncodeError:
+                print("debug")
+            else:
+                return True
 
 
 if __name__ == "__main__":
