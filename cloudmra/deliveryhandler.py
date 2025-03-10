@@ -2,7 +2,6 @@
 @author: paul
 '''
 import smtplib
-# from smtplib import SMTPUTF8
 
 
 class deliveryhandler():
