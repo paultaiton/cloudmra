@@ -23,8 +23,8 @@ class deliveryhandler():
                 return self.INVALIDUSER
             except (smtplib.SMTPServerDisconnected, smtplib.SMTPSenderRefused):
                 self.lmtp.connect(host=self.hostname, port=self.port)
-            except UnicodeEncodeError:
-                print("debug")
+            # except UnicodeEncodeError:  # Do not run with this uncommented, will cause endless loop
+            #     print("debug")
             else:
                 return True
 
