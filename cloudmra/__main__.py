@@ -30,7 +30,8 @@ class overseer():
         self.inhandler = cloudhandler(queue_name=QUEUE_NAME, expire_bucket=EXPIRE_BUCKET)
         self.outhandler = deliveryhandler(host=DELIVERY_HOST, port=DELIVERY_PORT)
         self.alias = aliashandler(ALIAS)
-        self.email_parser = email.parser.Parser()
+        # self.email_parser = email.parser.Parser()
+        self.email_parser = email.parser.BytesParser()
 
     def signal_handler(self, sig_int, frame_object=0):
         if sig_int is signal.SIGINT or sig_int is signal.SIGTERM:
@@ -45,7 +46,8 @@ class overseer():
                 print("Processing {0} new messages.".format(len(email_list)))
                 for mail in email_list:
                     raw_message, receipients = mail[0]
-                    parsed_message = self.email_parser.parsestr(raw_message)
+                    # parsed_message = self.email_parser.parsestr(raw_message)
+                    parsed_message = self.email_parser.parsebytes(raw_message.encode("utf-8"))
                     default = self.alias.get_default(list(receipients)[0])
                     adressee = set()
                     confirmed = set()

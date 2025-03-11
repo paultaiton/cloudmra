@@ -33,6 +33,7 @@ class cloudhandler():
 
     def fetch(self):
         returnlist = list()
+        # messages = self.queue.receive_messages(WaitTimeSeconds=3, MaxNumberOfMessages=1)  # For debugging
         messages = self.queue.receive_messages(WaitTimeSeconds=3, MaxNumberOfMessages=10)
         for message in messages:
             payload = json.loads(json.loads(message.body).get("Message"))
@@ -46,8 +47,8 @@ class cloudhandler():
                 email = tempfile.read()
             os.remove(self.filename)
             returnlist.append(((email, set(receipients)),  # The odd format is to keep this modular.
-                               message,                    # The tuple (email, set(receipients)) is used by main.
-                               s3obj))                     # message is included as a return handle to be used in a later call to delete()
+                                message,                   # The tuple (email, set(receipients)) is used by main.
+                                s3obj))                    # message is included as a return handle to be used in a later call to delete()
 
         if len(returnlist) > 0:
             return returnlist
